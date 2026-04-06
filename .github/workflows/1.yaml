@@ -19,7 +19,7 @@ jobs:
           - 8001:8000
     steps:
       - uses: actions/checkout@v4
-      - run: aws dynamodb list-tables --endpoint-url http://localhost:8001/
+      - run: aws dynamodb list-tables --endpoint-url http://localhost:8001/ --region us-east-1
         env:
           AWS_ACCESS_KEY_ID: "fake"
           AWS_SECRET_ACCESS_KEY: "fake"
