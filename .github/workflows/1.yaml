@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
 
-name: Lint & Test
+name: Test Workflow
 
 on:
   workflow_dispatch:
@@ -10,21 +10,13 @@ permissions:
   pull-requests: read
 
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
-    services:
-      dynamodb-local:
-        image: amazon/dynamodb-local:latest
-        ports:
-          - 8001:8000
+
     steps:
-      - uses: actions/checkout@v4
-      - run: aws dynamodb list-tables --endpoint-url http://localhost:8001/ --region us-east-1
-        env:
-          AWS_ACCESS_KEY_ID: "fake"
-          AWS_SECRET_ACCESS_KEY: "fake"
-#      - uses: pnpm/action-setup@v4
-#      - run: pnpm install
-#      - run: pnpm test:integration
-#        env:
-#          DYNAMODB_ENDPOINT: 'http://localhost:8001/'
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+      
+      - name: pnpm version
+        run: pnpm --version
